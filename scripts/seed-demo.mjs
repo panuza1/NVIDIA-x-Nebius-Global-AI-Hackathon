@@ -1,0 +1,12 @@
+import {createClient} from '@supabase/supabase-js';
+import {createHash} from 'node:crypto';
+const base=process.argv[2];
+if(!base||!process.env.NEXT_PUBLIC_SUPABASE_URL||!process.env.SUPABASE_SERVICE_ROLE_KEY) throw Error('Usage: npm run seed:demo -- https://YOUR-DEPLOYED-APP (requires Supabase env vars).');
+const url=new URL('/demo/scholarship',base);if(url.protocol!=='https:') throw Error('Use the public deployed HTTPS URL.');
+const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}});
+const {data:monitor,error}=await db.rpc('create_monitor',{p_url:url.toString(),p_context:'Fictional demonstration with a synthetic prior baseline.'});if(error) throw error;
+const {count,error:existing}=await db.from('snapshots').select('id',{count:'exact',head:true}).eq('monitor_id',monitor.id);if(existing) throw existing;if(count) throw Error('Demo monitor already has snapshots; seed only into a fresh monitor.');
+const content='SYNTHETIC PRIOR BASELINE — fictional demonstration. Application deadline: November 15, 2026. Open to undergraduate students. No recommendation letter is required.';
+const facts={deadline:{value:'2026-11-15',evidence:'Application deadline: November 15, 2026.'},eligibility:{value:'Undergraduate students',evidence:'Open to undergraduate students.'},required_documents:[]};
+const {error:save}=await db.rpc('save_check',{p_monitor_id:monitor.id,p_previous_id:null,p_hash:createHash('sha256').update(content).digest('hex'),p_content:content,p_facts:facts,p_report:null});if(save) throw save;
+console.log('Synthetic prior baseline saved for '+url+'; run Check now against the live page.');

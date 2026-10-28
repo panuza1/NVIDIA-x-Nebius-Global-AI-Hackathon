@@ -1,0 +1,48 @@
+{
+  "name": "changeproof",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "seed:demo": "node --env-file-if-exists=.env.local scripts/seed-demo.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panuza1/NVIDIA-x-Nebius-Global-AI-Hackathon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/panuza1/NVIDIA-x-Nebius-Global-AI-Hackathon/issues"
+  },
+  "homepage": "https://github.com/panuza1/NVIDIA-x-Nebius-Global-AI-Hackathon#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "@tavily/core": "^0.7.14",
+    "next": "^16.4.3",
+    "openai": "^7.45.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  },
+  "private": true
+}
