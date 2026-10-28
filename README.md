@@ -6,11 +6,12 @@ ChangeProof monitors public scholarship, hackathon and application pages for cha
 
 ## Run locally
 
-1. Install Node.js 20.9+ (a current Node LTS is recommended), then run `npm install`.
+1. Install Node.js 22.21+ or a current Node 24 LTS (the demo and preflight scripts use `--env-file-if-exists`), then run `npm install`.
 2. Create a Supabase project. Execute `supabase/schema.sql` once in its SQL editor. It creates the tables, indexes, RLS and transactional functions. The functions use the caller's privileges; the server uses the service role. Do not expose this key in the browser.
 3. Copy `.env.example` to `.env.local` and supply `TAVILY_API_KEY`, `NEBIUS_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL` (the Supabase project URL), and `SUPABASE_SERVICE_ROLE_KEY`. The default `NEBIUS_BASE_URL` and `NEBIUS_MODEL` are from Nebius's cookbook, but model access has **not** been verified for this account. Check availability with a real completion; if needed select another NVIDIA Nemotron model actually available on Nebius, and document it.
 4. Run `npm run dev` and open http://localhost:3000. Add a public HTTPS URL, then click Check now to save a baseline. Check again after the per-monitor cooldown.
-5. Run `npm run lint`, `npm test`, and `npm run build`.
+5. Run `npm run verify:integrations -- https://PUBLIC-APPLICATION-PAGE` to test Supabase table/column access, Tavily extraction, and a Nemotron completion. The script uses `.env.local` or environment variables and does not print credential values. It does not test RPCs, database writes, the full application workflow, or hosted latency.
+6. Run `npm run lint`, `npm test`, and `npm run build`.
 
 ## Deploy to Vercel
 

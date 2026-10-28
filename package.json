@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
-    "seed:demo": "node --env-file-if-exists=.env.local scripts/seed-demo.mjs"
+    "seed:demo": "node --env-file-if-exists=.env.local scripts/seed-demo.mjs",
+    "verify:integrations": "node --env-file-if-exists=.env.local scripts/verify-integrations.mjs"
   },
   "repository": {
     "type": "git",
